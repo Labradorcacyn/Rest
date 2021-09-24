@@ -21,9 +21,21 @@ public class TaskController {
         return repository.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Task findOne(@PathVariable("id") Long id){
+        return repository.findById(id).orElse(null);
+    }
+
     @PostMapping("/")
     public ResponseEntity<Task> create(@RequestBody Task task){
    // return repository.save(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(task)) ;
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id){
+        repository.deleteById(id);
+        return ResponseEntity.noContent().build(); // Es más legible
+
     }
 }
