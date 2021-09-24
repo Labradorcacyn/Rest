@@ -32,6 +32,14 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(task)) ;
     }
 
+    @PutMapping ("/{id}")
+    public Task edit(@RequestBody Task task, @PathVariable Long id){
+    repository.findById(id).orElse(task).getText();
+    repository.findById(id).orElse(task).getTitle();
+    return repository.save(repository.findById(id).orElse(task));
+
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id){
         repository.deleteById(id);
